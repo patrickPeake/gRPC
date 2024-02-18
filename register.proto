@@ -11,6 +11,8 @@ service RegisterService {
     // Define the following two RPCs
     // name: ReadValue, input: ReadItemRequest, output: Response
     // name: WriteValue, input: WriteItemRequest, output: Response
+    rpc ReadValue(ReadItemRequest) returns (Response) {}
+    rpc WriteValue(WriteItemRequest) returns (Response) {}
 }
 
 message GetRequest {

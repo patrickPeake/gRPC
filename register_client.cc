@@ -86,14 +86,14 @@ Result* RegisterServiceClient::GetRegisterArray(std::string name) {
 
 Result* RegisterServiceClient::CreateRegisterArray(std::string name, uint32_t capacity) {
     CreateRequest request;
-    // Task: Set the name and capacity of the register array
+    // DONE: Set the name and capacity of the register array
     request.set_name(name);
     request.set_capacity(capacity);
 
     Response response;
     ClientContext context;
     
-    // Task: call the CreateRegisterArray RPC
+    // DONE: call the CreateRegisterArray RPC
     Status status = stub_->CreateRegisterArray(&context, request, &response);
     if (!status.ok()) {
         out_ << "[Error:" << status.error_code() << "] " << status.error_message() << std::endl;
@@ -123,12 +123,14 @@ Result* RegisterServiceClient::DeleteRegisterArray(std::string name) {
 
 Result* RegisterServiceClient::ReadValue(std::string name, uint32_t index) {
     ReadItemRequest request;
+    request.set_name(name);
+    request.set_index(index);
     // Task: Set the name of the register array, and the index of the item
     Response response;
     ClientContext context;
 
     // Task: call the ReadValue RPC
-    Status status = Status::OK;
+    Status status = stub_->ReadValue(&context, request, &response);
     if (!status.ok()) {
         out_ << "[Error:" << status.error_code() << "] " << status.error_message() << std::endl;
         return new Result(status, response);

@@ -134,21 +134,21 @@ RegisterServiceImpl::ReadValue(::grpc::ServerContext* context,
     // 2.a) if `index` is larger than register's capacity, the body of the second `if` statement should execute
     // 2.b) Otherwise, read the value to `response`
     
-    // std::map<std::string, RegisterArray*>::iterator it = ...
-    /*if (/*complete condition*//*) {
+    std::map<std::string, RegisterArray*>::iterator it = _registers.find(name);
+    if (it != _registers.end()) {
         std::string msg("[READ] Register: " + name + " doesn't exist");
         return Status(StatusCode::NOT_FOUND, msg);
     }
 
-    // RegisterArray* r = ...
-    if (/*complete condition*//*) {
+    RegisterArray* r = it->second;
+    if (r->capacity() < index) {
         std::string msg("[READ] Register: " + name + ", Index: " + std::to_string(index) + " invalid");
         return Status(StatusCode::OUT_OF_RANGE, msg);
     }
 
     // get the value here
-    // uint32_t value = ...
-    response->set_value(value);*/
+    uint32_t value = r->items(index);
+    response->set_value(value);
     return Status::OK;
 }
 
