@@ -19,14 +19,14 @@ int main(int argc, char** argv) {
     client.ReadValue("test", 0);
     client.ReadValue("test", 1);
     client.ReadValue("test1", 1);
-
+    printf("\n\n");
     client.WriteValue("test", 0, 100);
     client.WriteValue("test", 0, 200);
     client.WriteValue("test", 1, 2);
     client.WriteValue("test", 1, 3);
     client.WriteValue("test1", 1, 3);
     client.WriteValue("test", 100, 3);
-
+    printf("\n\n");
     client.ReadValue("test", 0);
     client.ReadValue("test", 1);
     client.GetAllRegisterArrays();

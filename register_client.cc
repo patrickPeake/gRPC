@@ -87,11 +87,14 @@ Result* RegisterServiceClient::GetRegisterArray(std::string name) {
 Result* RegisterServiceClient::CreateRegisterArray(std::string name, uint32_t capacity) {
     CreateRequest request;
     // Task: Set the name and capacity of the register array
+    request.set_name(name);
+    request.set_capacity(capacity);
+
     Response response;
     ClientContext context;
     
     // Task: call the CreateRegisterArray RPC
-    Status status = Status::OK;
+    Status status = stub_->CreateRegisterArray(&context, request, &response);
     if (!status.ok()) {
         out_ << "[Error:" << status.error_code() << "] " << status.error_message() << std::endl;
         return new Result(status, response);
