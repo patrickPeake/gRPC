@@ -135,7 +135,7 @@ RegisterServiceImpl::ReadValue(::grpc::ServerContext* context,
     // 2.b) Otherwise, read the value to `response`
     
     std::map<std::string, RegisterArray*>::iterator it = _registers.find(name);
-    if (it != _registers.end()) {
+    if (!(it != _registers.end())) { //adding leading ! probably more complicated than removing from != but this way the atomic operation for exists stays the same and only a prefix is added
         std::string msg("[READ] Register: " + name + " doesn't exist");
         return Status(StatusCode::NOT_FOUND, msg);
     }
