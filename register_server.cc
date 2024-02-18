@@ -12,7 +12,7 @@ void RegisterServiceImpl::BuildRegisterArrayResponse(::register_service::Respons
     
     // 1. Get the register array from `it`
     RegisterArray* curr_reg = it->second;
-
+/*
     // 2. Add a new register array to `response`
     RegisterArray* new_reg = response->add_registers();
     new_reg->set_name(curr_reg->name());
@@ -23,10 +23,10 @@ void RegisterServiceImpl::BuildRegisterArrayResponse(::register_service::Respons
     // ::google::protobuf::RepeatedField<uint32_t>* items = ..
     ::google::protobuf::RepeatedField<uint32_t>::iterator curr_it;
     uint32_t item_idx = 0;
-    for (/*4. complete iteration*/) {
+    for (/*4. complete iteration*//*) {
         // 5. Add an item
         // new_reg->...
-    }
+    }*/
 }
 
 ::grpc::Status
@@ -51,13 +51,13 @@ RegisterServiceImpl::GetRegisterArray(::grpc::ServerContext* context,
     // 3. Otherwise, call BuildRegisterArrayResponse
 
     // std::map<std::string, RegisterArray*>::iterator it = ...
-    if (/*complete condition*/) {
+    /*if (/*complete condition*//*) {
         std::string msg("[GET] Register " + name + " doesn't exist");
         return Status(StatusCode::NOT_FOUND, msg);
     }
 
     // Call BuildRegisterArrayResponse
-
+*/
     return Status::OK;
 }
 
@@ -75,7 +75,7 @@ RegisterServiceImpl::CreateRegisterArray(::grpc::ServerContext* context,
     // All new items should be zero'd
     
     // std::map<std::string, RegisterArray*>::iterator it = ...
-    if (/*complete condition*/) {
+    /*if (/*complete condition*//*) {
         std::string msg("[CREATE] Register: " + name + " already exists");
         return Status(StatusCode::ALREADY_EXISTS, msg);
     }
@@ -108,13 +108,13 @@ RegisterServiceImpl::DeleteRegisterArray(::grpc::ServerContext* context,
     // 3. Otherwise, remove the register array from `_registers` and `_written_indices`
     
     // std::map<std::string, RegisterArray*>::iterator it = ...
-    if (/*complete condition*/) {
+    /*if (/*complete condition*//**) {
         std::string msg("[DELETE] Register: " + name + " doesn't exist");
         return Status(StatusCode::NOT_FOUND, msg);
     }
     
     // Remove the register array from `_registers`
-    //_registers.erase(...);
+    //_registers.erase(...);*/
     _written_indices.erase(name);
 
     return Status::OK;
@@ -135,20 +135,20 @@ RegisterServiceImpl::ReadValue(::grpc::ServerContext* context,
     // 2.b) Otherwise, read the value to `response`
     
     // std::map<std::string, RegisterArray*>::iterator it = ...
-    if (/*complete condition*/) {
+    /*if (/*complete condition*//*) {
         std::string msg("[READ] Register: " + name + " doesn't exist");
         return Status(StatusCode::NOT_FOUND, msg);
     }
 
     // RegisterArray* r = ...
-    if (/*complete condition*/) {
+    if (/*complete condition*//*) {
         std::string msg("[READ] Register: " + name + ", Index: " + std::to_string(index) + " invalid");
         return Status(StatusCode::OUT_OF_RANGE, msg);
     }
 
     // get the value here
     // uint32_t value = ...
-    response->set_value(value);
+    response->set_value(value);*/
     return Status::OK;
 }
 
@@ -169,7 +169,7 @@ RegisterServiceImpl::WriteValue(::grpc::ServerContext* context,
 
     // std::map<std::string, RegisterArray*>::iterator it_reg = ...
     // std::map<std::string, std::set<uint32_t>*>::iterator it_wrt = ...
-    if (/*complete condition*/) {
+    /*if (/*complete condition*//*) {
         std::string msg("[WRITE] Register: " + name + " doesn't exist");
         return Status(StatusCode::NOT_FOUND, msg);
     }
@@ -178,7 +178,7 @@ RegisterServiceImpl::WriteValue(::grpc::ServerContext* context,
     uint32_t capacity = reg->capacity();
     uint32_t size = reg->size();
 
-    if (/*complete condition*/) {
+    if (/*complete condition*//*) {
         std::string msg("[WRITE] Register: " + name + ", Index: " + std::to_string(index) + " invalid");
         return Status(StatusCode::OUT_OF_RANGE, msg);
     }
@@ -193,6 +193,6 @@ RegisterServiceImpl::WriteValue(::grpc::ServerContext* context,
         written->insert(index);
         reg->set_size(size + 1);
     }
-    
+    */
     return Status::OK;
 }

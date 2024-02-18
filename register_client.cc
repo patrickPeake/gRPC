@@ -22,6 +22,13 @@ void RegisterServiceClient::OutputRegisterArray(::google::protobuf::internal::Re
     // Task: output the index and value of every item to `out_`
     // Use the following format
     // out_ << "Index: " << index_var << ", Value: " << value_var << std::endl;
+    for (int i = 0; i < it->size(); ++i) {
+        // Get the value at index i
+        const uint32_t value = it->items(i);
+
+        // Output the index and value
+        out_ << "Index: " << i << ", Value: " << value << std::endl;
+    }
 }
 
 Result* RegisterServiceClient::GetAllRegisterArrays() {
