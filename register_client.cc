@@ -30,7 +30,7 @@ Result* RegisterServiceClient::GetAllRegisterArrays() {
     ClientContext context;
 
     // Task: call the GetAllRegisterArrays RPC
-    // Status status = ...
+    Status status = Status::OK;
     if (!status.ok()) {
         out_ << "[Error:" << status.error_code() << "] " << status.error_message() << std::endl;
         return new Result(status, response);
@@ -60,7 +60,7 @@ Result* RegisterServiceClient::GetRegisterArray(std::string name) {
     ClientContext context;
     
     // Task: call the GetRegisterArray RPC
-    // Status status = ...
+    Status status = Status::OK;
     if (!status.ok()) {
         out_ << "[Error:" << status.error_code() << "] " << status.error_message() << std::endl;
         return new Result(status, response);
@@ -84,7 +84,7 @@ Result* RegisterServiceClient::CreateRegisterArray(std::string name, uint32_t ca
     ClientContext context;
     
     // Task: call the CreateRegisterArray RPC
-    // Status status = ...
+    Status status = Status::OK;
     if (!status.ok()) {
         out_ << "[Error:" << status.error_code() << "] " << status.error_message() << std::endl;
         return new Result(status, response);
@@ -101,7 +101,7 @@ Result* RegisterServiceClient::DeleteRegisterArray(std::string name) {
     ClientContext context;
 
     // Task: call the DeleteRegisterArray RPC
-    // Status status = ...
+    Status status = Status::OK;
     if (!status.ok()) {
         out_ << "[Error:" << status.error_code() << "] " << status.error_message() << std::endl;
         return new Result(status, response);
@@ -118,7 +118,7 @@ Result* RegisterServiceClient::ReadValue(std::string name, uint32_t index) {
     ClientContext context;
 
     // Task: call the ReadValue RPC
-    // Status status = ...
+    Status status = Status::OK;
     if (!status.ok()) {
         out_ << "[Error:" << status.error_code() << "] " << status.error_message() << std::endl;
         return new Result(status, response);
@@ -139,7 +139,7 @@ Result* RegisterServiceClient::WriteValue(std::string name, uint32_t index, uint
     ClientContext context;
 
     // Task: call the WriteValue RPC
-    // Status status = ...
+    Status status = Status::OK;
     if (!status.ok()) {
         out_ << "[Error:" << status.error_code() << "] " << status.error_message() << std::endl;
         return new Result(status, response);

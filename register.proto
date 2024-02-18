@@ -23,11 +23,14 @@ message DeleteRequest {
 
 message CreateRequest {
     string name = 1;
-    // Task: Define the following field
+    uint32 capacity = 2;
+    // Task: Define the following field DONE
     // field: capacity, type: uint32
 }
 
 message ReadItemRequest {
+    string name = 1;
+    uint32 index = 2;
     // Task: Define the following fields
     // field: name, type: string
     // field: index, type: uint32
@@ -40,7 +43,11 @@ message WriteItemRequest {
 }
 
 message RegisterArray {
-    // Task: Define the following fields
+    string name = 1;
+    uint32 capacity = 2;
+    uint32 size = 3;
+    repeated uint32 items = 4;
+    // Task: Define the following fields DONE
     // field: name, type: string
     // field: capacity, type: uint32
     // field: size, type: uint32

@@ -11,10 +11,10 @@ void RegisterServiceImpl::BuildRegisterArrayResponse(::register_service::Respons
     // Task: Copy the register array `it` to response (follow the following five instructions)
     
     // 1. Get the register array from `it`
-    // RegisterArray* curr_reg = ...
+    RegisterArray* curr_reg = it->second;
 
     // 2. Add a new register array to `response`
-    // RegisterArray* new_reg = response->...
+    RegisterArray* new_reg = response->add_registers();
     new_reg->set_name(curr_reg->name());
     new_reg->set_capacity(curr_reg->capacity());
     new_reg->set_size(curr_reg->size());
