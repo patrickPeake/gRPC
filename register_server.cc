@@ -14,7 +14,7 @@ void RegisterServiceImpl::BuildRegisterArrayResponse(::register_service::Respons
     RegisterArray* curr_reg = it->second;
 /*
     // 2. Add a new register array to `response`
-    RegisterArray* new_reg = response->add_registers();
+    RegisterArray* new_reg = response->;
     new_reg->set_name(curr_reg->name());
     new_reg->set_capacity(curr_reg->capacity());
     new_reg->set_size(curr_reg->size());
@@ -74,24 +74,24 @@ RegisterServiceImpl::CreateRegisterArray(::grpc::ServerContext* context,
     // 3. Otherwise, create a new RegisterArray object and add it to `_registers`
     // All new items should be zero'd
     
-    // std::map<std::string, RegisterArray*>::iterator it = ...
-    /*if (/*complete condition*//*) {
+    std::map<std::string, RegisterArray*>::iterator it = _registers.find(name);
+    if (it != _registers.end()) {
         std::string msg("[CREATE] Register: " + name + " already exists");
         return Status(StatusCode::ALREADY_EXISTS, msg);
     }
 
     // Complete
-    // RegisterArray* r = ...
-    // r->set_XXX; // set the name
-    // r->set_XXX; // set the size
-    // r->set_XXX; // set the capacity
+    RegisterArray* r = new(RegisterArray);
+    r->set_name(name); // set the name
+    r->set_size(0); // set the size
+    r->set_capacity(capacity); // set the capacity
     // All items are initialized with zeros
     for (int i = 0; i < capacity; i++) {
         r->mutable_items()->Add(0);
     }
 
     // Add the register array to `_registers`
-    //_registers.insert(...);
+    _registers.insert({name, r});
     _written_indices.insert(std::pair<std::string, std::set<uint32_t>*>(name, new std::set<uint32_t>()));
     return Status::OK;
 }
