@@ -19,7 +19,7 @@ RegisterServiceClient::RegisterServiceClient(std::shared_ptr<Channel> channel, s
 
 void RegisterServiceClient::OutputRegisterArray(::google::protobuf::internal::RepeatedPtrIterator<RegisterArray> it) {
     out_ << it->name() << " " << it->capacity() << " " << it->size() << std::endl;
-    // Task: output the index and value of every item to `out_`
+    // Done: output the index and value of every item to `out_`
     // Use the following format
     // out_ << "Index: " << index_var << ", Value: " << value_var << std::endl;
     for (int i = 0; i < it->capacity(); ++i) {
@@ -36,7 +36,7 @@ Result* RegisterServiceClient::GetAllRegisterArrays() {
     Response response;
     ClientContext context;
 
-    // Task: call the GetAllRegisterArrays RPC
+    // Done: call the GetAllRegisterArrays RPC
     Status status = stub_->GetAllRegisterArrays(&context, request, &response);
     if (!status.ok()) {
         out_ << "[Error:" << status.error_code() << "] " << status.error_message() << std::endl;
@@ -53,7 +53,7 @@ Result* RegisterServiceClient::GetAllRegisterArrays() {
         return new Result(status, response);
     }
 
-    // Task: Output the register arrays to `_out`
+    // Done: Output the register arrays to `_out`
     // Iterate over all returned arrays
     // call OutputRegisterArray
     MultiRegisterArray* mra = response.mutable_arrays();
@@ -74,7 +74,7 @@ Result* RegisterServiceClient::GetRegisterArray(std::string name) {
     Response response;
     ClientContext context;
     
-    // Task: call the GetRegisterArray RPC
+    // Done: call the GetRegisterArray RPC
     Status status = stub_->GetRegisterArray(&context, request, &response);
     if (!status.ok()) {
         out_ << "[Error:" << status.error_code() << "] " << status.error_message() << std::endl;
@@ -86,7 +86,7 @@ Result* RegisterServiceClient::GetRegisterArray(std::string name) {
         return new Result(status, response);
     }
 
-    // Task: Output the returned register array to `_out`
+    // Done: Output the returned register array to `_out`
     // call OutputRegisterArray
 
     MultiRegisterArray* mra = response.mutable_arrays();
@@ -122,12 +122,13 @@ Result* RegisterServiceClient::CreateRegisterArray(std::string name, uint32_t ca
 
 Result* RegisterServiceClient::DeleteRegisterArray(std::string name) {
     DeleteRequest request;
-    // Task: Set the name of the register array
+    request.set_name(name);
+    // Done: Set the name of the register array
     Response response;
     ClientContext context;
 
-    // Task: call the DeleteRegisterArray RPC
-    Status status = Status::OK;
+    // Done: call the DeleteRegisterArray RPC
+    Status status = stub_->DeleteRegisterArray(&context, request, &response);;
     if (!status.ok()) {
         out_ << "[Error:" << status.error_code() << "] " << status.error_message() << std::endl;
         return new Result(status, response);

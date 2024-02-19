@@ -8,7 +8,7 @@ void RegisterServiceImpl::BuildRegisterArrayResponse(::register_service::Respons
     if (it == _registers.end()) {
         return;
     }
-    // Task: Copy the register array `it` to response (follow the following five instructions)
+    // DONE: Copy the register array `it` to response (follow the following five instructions)
     
     // 1. Get the register array from `it`
     RegisterArray* curr_reg = it->second;
@@ -111,14 +111,14 @@ RegisterServiceImpl::DeleteRegisterArray(::grpc::ServerContext* context,
     // 2. If it doesn't exist, the body of the `if` statement should execute
     // 3. Otherwise, remove the register array from `_registers` and `_written_indices`
     
-    // std::map<std::string, RegisterArray*>::iterator it = ...
-    /*if (/*complete condition*//**) {
+    std::map<std::string, RegisterArray*>::iterator it = _registers.find(name);
+    if (!(it != _registers.end())) {
         std::string msg("[DELETE] Register: " + name + " doesn't exist");
         return Status(StatusCode::NOT_FOUND, msg);
     }
     
     // Remove the register array from `_registers`
-    //_registers.erase(...);*/
+    _registers.erase(name);
     _written_indices.erase(name);
 
     return Status::OK;

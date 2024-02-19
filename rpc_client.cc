@@ -13,12 +13,13 @@ int main(int argc, char** argv) {
     RegisterServiceClient client(grpc::CreateChannel(address, grpc::InsecureChannelCredentials()),
                                  std::cout);
     // This is a sample client
-    client.CreateRegisterArray("test", 16);
-    client.CreateRegisterArray("test", 16);
-    client.CreateRegisterArray("test1", 32);
+    client.CreateRegisterArray("test", 4);
+    client.CreateRegisterArray("test", 4);
+    client.CreateRegisterArray("test1", 5);
     client.ReadValue("test", 0);
     client.ReadValue("test", 1);
     client.ReadValue("test1", 1);
+
     printf("\n\n");
     client.WriteValue("test", 0, 100);
     client.WriteValue("test", 0, 200);
@@ -33,10 +34,13 @@ int main(int argc, char** argv) {
     client.ReadValue("flowCount", 0);
     client.ReadValue("flowCount", 2);
     client.ReadValue("flowCount", 5);
+
     printf("\n\n");
     client.ReadValue("test", 0);
     client.ReadValue("test", 1);
     client.GetAllRegisterArrays();
+    
+    printf("\n\n");
     Result* r = client.GetRegisterArray("test1");
     client.DeleteRegisterArray("test1");
     client.GetRegisterArray("test1");
