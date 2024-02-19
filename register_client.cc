@@ -22,7 +22,7 @@ void RegisterServiceClient::OutputRegisterArray(::google::protobuf::internal::Re
     // Task: output the index and value of every item to `out_`
     // Use the following format
     // out_ << "Index: " << index_var << ", Value: " << value_var << std::endl;
-    for (int i = 0; i < it->size(); ++i) {
+    for (int i = 0; i < it->capacity(); ++i) {
         // Get the value at index i
         const uint32_t value = it->items(i);
 
@@ -37,7 +37,7 @@ Result* RegisterServiceClient::GetAllRegisterArrays() {
     ClientContext context;
 
     // Task: call the GetAllRegisterArrays RPC
-    Status status = Status::OK;
+    Status status = stub_->GetAllRegisterArrays(&context, request, &response);
     if (!status.ok()) {
         out_ << "[Error:" << status.error_code() << "] " << status.error_message() << std::endl;
         return new Result(status, response);
@@ -56,18 +56,26 @@ Result* RegisterServiceClient::GetAllRegisterArrays() {
     // Task: Output the register arrays to `_out`
     // Iterate over all returned arrays
     // call OutputRegisterArray
+    MultiRegisterArray* mra = response.mutable_arrays();
+    google::protobuf::RepeatedPtrField<register_service::RegisterArray> fld = mra->arrays();
+    
+
+    for(google::protobuf::RepeatedPtrField<register_service::RegisterArray>::iterator it = fld.begin(); it != fld.end(); it++){
+        OutputRegisterArray(it);
+    }
+
 
     return new Result(status, response);
 }
 
 Result* RegisterServiceClient::GetRegisterArray(std::string name) {
     GetRequest request;
-    // Task: Set the name of the register array
+    request.set_name(name);
     Response response;
     ClientContext context;
     
     // Task: call the GetRegisterArray RPC
-    Status status = Status::OK;
+    Status status = stub_->GetRegisterArray(&context, request, &response);
     if (!status.ok()) {
         out_ << "[Error:" << status.error_code() << "] " << status.error_message() << std::endl;
         return new Result(status, response);
@@ -80,6 +88,14 @@ Result* RegisterServiceClient::GetRegisterArray(std::string name) {
 
     // Task: Output the returned register array to `_out`
     // call OutputRegisterArray
+
+    MultiRegisterArray* mra = response.mutable_arrays();
+    google::protobuf::RepeatedPtrField<register_service::RegisterArray> fld = mra->arrays();
+    
+
+    for(google::protobuf::RepeatedPtrField<register_service::RegisterArray>::iterator it = fld.begin(); it != fld.end(); it++){
+        OutputRegisterArray(it);
+    }
 
     return new Result(status, response);
 }

@@ -23,7 +23,8 @@ void RegisterServiceImpl::BuildRegisterArrayResponse(::register_service::Respons
     const ::google::protobuf::RepeatedField<uint32_t>& items = curr_reg->items();
     ::google::protobuf::RepeatedField<uint32_t>::iterator curr_it;
     uint32_t item_idx = 0;
-    for (int i = 0; i < curr_reg->capacity(); i++) {
+    //printf("\n capacity: %d \n", new_reg->capacity());
+    for (int i = 0; i < new_reg->capacity(); i++) {
         // 5. Add an item
         new_reg->mutable_items()->Add(items[i]);
     }
@@ -36,8 +37,8 @@ RegisterServiceImpl::GetAllRegisterArrays(::grpc::ServerContext* context,
     std::map<std::string, RegisterArray*>::iterator it;
     // DONE: output all register arrays to `response`
     // Iterate over the register arrays in `_registers`, and call `BuildRegisterArrayResponse`
-    for(it = _registers.begin(); it != _registers.end(); it++){
-        BuildRegisterArrayResponse(response, it);
+    for(std::map<std::string, RegisterArray*>::iterator its = _registers.begin(); its != _registers.end(); its++){
+        BuildRegisterArrayResponse(response, its);
     }
     
     return Status::OK;
