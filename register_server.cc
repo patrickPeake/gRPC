@@ -12,21 +12,21 @@ void RegisterServiceImpl::BuildRegisterArrayResponse(::register_service::Respons
     
     // 1. Get the register array from `it`
     RegisterArray* curr_reg = it->second;
-/*
+
     // 2. Add a new register array to `response`
-    RegisterArray* new_reg = response->;
+    RegisterArray* new_reg = response->mutable_arrays()->add_arrays();
     new_reg->set_name(curr_reg->name());
     new_reg->set_capacity(curr_reg->capacity());
     new_reg->set_size(curr_reg->size());
 
     // 3. Copy items from `curr_reg` to `new_reg`
-    // ::google::protobuf::RepeatedField<uint32_t>* items = ..
+    const ::google::protobuf::RepeatedField<uint32_t>& items = curr_reg->items();
     ::google::protobuf::RepeatedField<uint32_t>::iterator curr_it;
     uint32_t item_idx = 0;
-    for (/*4. complete iteration*//*) {
+    for (int i = 0; i < curr_reg->capacity(); i++) {
         // 5. Add an item
-        // new_reg->...
-    }*/
+        new_reg->mutable_items()->Add(items[i]);
+    }
 }
 
 ::grpc::Status
@@ -36,6 +36,7 @@ RegisterServiceImpl::GetAllRegisterArrays(::grpc::ServerContext* context,
     std::map<std::string, RegisterArray*>::iterator it;
     // Task: output all register arrays to `response`
     // Iterate over the register arrays in `_registers`, and call `BuildRegisterArrayResponse`
+    
     
     return Status::OK;
 }
@@ -160,7 +161,7 @@ RegisterServiceImpl::WriteValue(::grpc::ServerContext* context,
     uint32_t index = request->index();
     uint32_t value = request->value();
 
-    // Task: write a value to a register array
+    // DONE: write a value to a register array
     // 1. Search for the register array in `_registers`
     // 2. If it doesn't exist, the body of the first `if` statement should execute
     // 2. If it exists:

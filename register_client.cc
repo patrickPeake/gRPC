@@ -125,11 +125,11 @@ Result* RegisterServiceClient::ReadValue(std::string name, uint32_t index) {
     ReadItemRequest request;
     request.set_name(name);
     request.set_index(index);
-    // Task: Set the name of the register array, and the index of the item
+    // DONE: Set the name of the register array, and the index of the item
     Response response;
     ClientContext context;
 
-    // Task: call the ReadValue RPC
+    // DONE: call the ReadValue RPC
     Status status = stub_->ReadValue(&context, request, &response);
     if (!status.ok()) {
         out_ << "[Error:" << status.error_code() << "] " << status.error_message() << std::endl;
