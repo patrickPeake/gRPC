@@ -34,9 +34,11 @@ RegisterServiceImpl::GetAllRegisterArrays(::grpc::ServerContext* context,
                                           const ::google::protobuf::Empty* request,
                                           ::register_service::Response* response) {
     std::map<std::string, RegisterArray*>::iterator it;
-    // Task: output all register arrays to `response`
+    // DONE: output all register arrays to `response`
     // Iterate over the register arrays in `_registers`, and call `BuildRegisterArrayResponse`
-    
+    for(it = _registers.begin(); it != _registers.end(); it++){
+        BuildRegisterArrayResponse(response, it);
+    }
     
     return Status::OK;
 }
@@ -46,19 +48,19 @@ RegisterServiceImpl::GetRegisterArray(::grpc::ServerContext* context,
                                       const ::register_service::GetRequest* request,
                                       ::register_service::Response* response) {
     std::string name = request->name();
-    // Task: output the requested register array to `response`
+    // DONE: output the requested register array to `response`
     // 1. Search for the register array in `_registers`
     // 2. If it doesn't exist, the body of the `if` statement should execute
     // 3. Otherwise, call BuildRegisterArrayResponse
 
-    // std::map<std::string, RegisterArray*>::iterator it = ...
-    /*if (/*complete condition*//*) {
+    std::map<std::string, RegisterArray*>::iterator it = _registers.find(name);
+    if (!(it != _registers.end())) {
         std::string msg("[GET] Register " + name + " doesn't exist");
         return Status(StatusCode::NOT_FOUND, msg);
     }
 
-    // Call BuildRegisterArrayResponse
-*/
+    BuildRegisterArrayResponse(response, it);
+
     return Status::OK;
 }
 
