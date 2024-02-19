@@ -68,7 +68,7 @@ RegisterServiceImpl::CreateRegisterArray(::grpc::ServerContext* context,
     std::string name = request->name();
     uint32_t capacity = request->capacity();
 
-    // Task: create a new register array
+    // DONE: create a new register array
     // 1. Search for the register array in `_registers`
     // 2. If it exists, the body of the `if` statement should execute
     // 3. Otherwise, create a new RegisterArray object and add it to `_registers`
@@ -127,7 +127,7 @@ RegisterServiceImpl::ReadValue(::grpc::ServerContext* context,
     std::string name = request->name();
     uint32_t index = request->index();
 
-    // Task: read a value from a register array
+    // DONE: read a value from a register array
     // 1. Search for the register array in `_registers`
     // 2. If it doesn't exist, the body of the first `if` statement should execute
     // 2. If it exists:
@@ -167,24 +167,26 @@ RegisterServiceImpl::WriteValue(::grpc::ServerContext* context,
     // 2.a) if `index` is larger than register's capacity, the body of the second `if` statement should execute
     // 2.b) Otherwise, modify the item using the given `index`
 
-    // std::map<std::string, RegisterArray*>::iterator it_reg = ...
-    // std::map<std::string, std::set<uint32_t>*>::iterator it_wrt = ...
-    /*if (/*complete condition*//*) {
+    std::map<std::string, RegisterArray*>::iterator it_reg = _registers.find(name);
+    std::map<std::string, std::set<uint32_t>*>::iterator it_wrt = _written_indices.find(name);
+    if (!(it_reg != _registers.end())) {
         std::string msg("[WRITE] Register: " + name + " doesn't exist");
         return Status(StatusCode::NOT_FOUND, msg);
     }
 
-    // RegisterArray* reg = ...
+    RegisterArray* reg = it_reg->second;
     uint32_t capacity = reg->capacity();
     uint32_t size = reg->size();
 
-    if (/*complete condition*//*) {
+    if (index > capacity) {
         std::string msg("[WRITE] Register: " + name + ", Index: " + std::to_string(index) + " invalid");
         return Status(StatusCode::OUT_OF_RANGE, msg);
     }
 
     // Modify the item here
     // ...
+
+    reg->set_items(index, value);
     
     // Keep these lines
     std::set<uint32_t>* written = it_wrt->second;
@@ -193,6 +195,6 @@ RegisterServiceImpl::WriteValue(::grpc::ServerContext* context,
         written->insert(index);
         reg->set_size(size + 1);
     }
-    */
+    
     return Status::OK;
 }

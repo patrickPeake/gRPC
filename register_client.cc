@@ -146,12 +146,15 @@ Result* RegisterServiceClient::ReadValue(std::string name, uint32_t index) {
 
 Result* RegisterServiceClient::WriteValue(std::string name, uint32_t index, uint32_t value) {
     WriteItemRequest request;
-    // Task: Set the name of the register array, and the index and value of the item
+    request.set_name(name);
+    request.set_index(index);
+    request.set_value(value);
+    // DONE: Set the name of the register array, and the index and value of the item
     Response response;
     ClientContext context;
 
-    // Task: call the WriteValue RPC
-    Status status = Status::OK;
+    // DONE: call the WriteValue RPC
+    Status status = stub_->WriteValue(&context, request, &response);;
     if (!status.ok()) {
         out_ << "[Error:" << status.error_code() << "] " << status.error_message() << std::endl;
         return new Result(status, response);
