@@ -22,7 +22,8 @@ void RegisterServiceClient::OutputRegisterArray(::google::protobuf::internal::Re
     // Done: output the index and value of every item to `out_`
     // Use the following format
     // out_ << "Index: " << index_var << ", Value: " << value_var << std::endl;
-    for (int i = 0; i < it->capacity(); ++i) {
+
+    for (int i = 0; i < it->capacity(); i++) { //loop through each element in the array
         // Get the value at index i
         const uint32_t value = it->items(i);
 
@@ -56,11 +57,11 @@ Result* RegisterServiceClient::GetAllRegisterArrays() {
     // Done: Output the register arrays to `_out`
     // Iterate over all returned arrays
     // call OutputRegisterArray
-    MultiRegisterArray* mra = response.mutable_arrays();
-    google::protobuf::RepeatedPtrField<register_service::RegisterArray> fld = mra->arrays();
+    MultiRegisterArray* mra = response.mutable_arrays(); //get the MultiReisterArray out of the response
+    google::protobuf::RepeatedPtrField<register_service::RegisterArray> fld = mra->arrays(); //get the registerArrays out of the MultiRegisterArray
     
 
-    for(google::protobuf::RepeatedPtrField<register_service::RegisterArray>::iterator it = fld.begin(); it != fld.end(); it++){
+    for(google::protobuf::RepeatedPtrField<register_service::RegisterArray>::iterator it = fld.begin(); it != fld.end(); it++){ //iterate over the RegisterArrays
         OutputRegisterArray(it);
     }
 
@@ -89,12 +90,12 @@ Result* RegisterServiceClient::GetRegisterArray(std::string name) {
     // Done: Output the returned register array to `_out`
     // call OutputRegisterArray
 
-    MultiRegisterArray* mra = response.mutable_arrays();
+    MultiRegisterArray* mra = response.mutable_arrays(); //same above
     google::protobuf::RepeatedPtrField<register_service::RegisterArray> fld = mra->arrays();
     
 
-    for(google::protobuf::RepeatedPtrField<register_service::RegisterArray>::iterator it = fld.begin(); it != fld.end(); it++){
-        OutputRegisterArray(it);
+    for(google::protobuf::RepeatedPtrField<register_service::RegisterArray>::iterator it = fld.begin(); it != fld.end(); it++){ 
+        OutputRegisterArray(it); //probably didnt need this loop as itll only ever go through once but I know this works and if it aint broke dont fix it
     }
 
     return new Result(status, response);

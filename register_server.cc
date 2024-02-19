@@ -23,7 +23,6 @@ void RegisterServiceImpl::BuildRegisterArrayResponse(::register_service::Respons
     const ::google::protobuf::RepeatedField<uint32_t>& items = curr_reg->items();
     ::google::protobuf::RepeatedField<uint32_t>::iterator curr_it;
     uint32_t item_idx = 0;
-    //printf("\n capacity: %d \n", new_reg->capacity());
     for (int i = 0; i < new_reg->capacity(); i++) {
         // 5. Add an item
         new_reg->mutable_items()->Add(items[i]);
